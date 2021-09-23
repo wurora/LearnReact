@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="../js/16.8.4/react.development.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/babel.min.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/prop-types.js"></script>
+
+  <script type="text/babel">
+    // 创建组件
+    class Demo extends React.Component {
+      myRef = React.createRef()
+      myRef2 = React.createRef()
+      showData = () => {
+        alert(this.myRef.current.value)
+        this.setState({ count: this.count++ }, () => {
+        })
+      }
+      showData2 = (e) => {
+        alert(e.target.value)
+      }
+      count = 0
+      saveInput = (c) => {
+        this.input1 = c;
+      }
+      render() {
+        return (
+          <div>
+            <input ref={this.myRef} type="text" placeholder="点击按钮提示数据" />&nbsp;
+            <button ref="btn" onClick={this.showData}>点我提示左侧数据</button>&nbsp;
+            <input onBlur={this.showData2} type="text" placeholder="点击按钮提示数据" />&nbsp;
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo />, document.querySelector('#test'))
+  </script>
+</body>
+
+</html>
