@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="../js/16.8.4/react.development.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/babel.min.js"></script>
+  <script type="text/javascript" src="../js/16.8.4/prop-types.js"></script>
+  <script type="text/babel">
+    class Login extends React.Component {
+      state = {
+        username: '',
+        password: ''
+      }
+      handelSubmit = (e) => {
+        console.log('@@')
+        console.log(this.state)
+      }
+      nameChanged = (e) => {
+        this.setState({ username: e.target.value })
+      }
+      pwdChanged = (e) => {
+        this.setState({ password: e.target.value })
+      }
+      render() {
+        return (
+          <form action="#" onSubmit={this.handelSubmit}>
+            <label htmlFor="username">用户名： <input onChange={this.nameChanged} type="text" id="username" /></label>
+            <label htmlFor="pwd">密码： <input onChange={this.pwdChanged} type="text" id="pwd" /></label>
+            <button>登录</button>
+          </form>
+        )
+      }
+    }
+
+    ReactDOM.render(<Login />, document.querySelector('#test'))
+  </script>
+</body>
+
+</html>

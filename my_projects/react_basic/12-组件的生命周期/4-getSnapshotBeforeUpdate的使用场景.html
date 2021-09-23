@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul {
+      width: 200px;
+      height: 150px;
+      background-color: #ffc0cb;
+      overflow: auto;
+    }
+
+    li {
+      list-style: none;
+      height: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="test"></div>
+
+  <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+  <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+  <script type="text/javascript" src="../js/17.0.1/prop-types.js"></script>
+  <script type="text/babel">
+    class NewsList extends React.Component {
+      state = {
+        newsArr: [],
+        timer: null
+      }
+
+      componentDidMount() {
+        this.state.timer = setInterval(() => {
+          const { newsArr } = this.state
+          const news = `新闻${newsArr.length + 1}`
+          this.setState({ newsArr: [news, ...newsArr] })
+        }, 1000);
+      }
+
+      stopTimer = () => {
+        const { timer } = this.state
+        clearInterval(timer)
+      }
+
+      getSnapshotBeforeUpdate() {
+        return { top: this.list.scrollTop, height: this.list.scrollHeight }
+      }
+
+      componentDidUpdate(prevProps, prevState, prevSnapshot) {
+        this.list.scrollTop = prevSnapshot.top + this.list.scrollHeight - prevSnapshot.height
+      }
+
+      render() {
+        const { newsArr } = this.state
+        return (
+          <div>
+            <ul ref={(c) => this.list = c}>
+              {
+                newsArr.map((i) =>
+                  <li key={i}>{i}</li>)
+              }
+            </ul>
+            <button onClick={this.stopTimer}>停止</button>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<NewsList />, document.querySelector('#test'))
+  </script>
+</body>
+
+</html>

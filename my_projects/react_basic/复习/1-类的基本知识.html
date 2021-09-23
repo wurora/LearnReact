@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1-类的基本知识</title>
+</head>
+
+<body>
+
+
+  <script type="text/javascript">
+    /* 
+      总结
+        1. 类中的构造器不是必须写的，要进行初始化操作才需要
+        2. 如果A类继承了B类，且A类写了构造器，必须调用super
+        3. 类中定义的方法都写在原型对象上，供类使用
+    */
+
+
+
+    class Person {
+      // 构造器方法
+      constructor(name, age) {
+        // 构造器中的this----类的实例对象
+        this.name = name;
+        this.age = age
+      }
+      // 一般方法
+      speak() {
+        // speak方法放在哪里？---类的原型对象 供实例使用
+        // this指向调用者，即谁调用方法指向谁
+        console.log(`我叫${this.name}，我的年龄是${this.age}`)
+      }
+    }
+
+    // 创建一个Student类 继承Person
+    class Student extends Person {
+      constructor(name, age, grade) {
+        // 调用父类构造函数
+        super(name, age)
+        this.grade = grade
+      }
+      // 重写父类继承的方法
+      speak() {
+        // ``是tab上面 1左边的符号
+        console.log(`我是${this.grade}的${this.name}`)
+      }
+      study() {
+        console.log(`${this.name} study`)
+      }
+    }
+
+    class Car {
+      constructor(name, price) {
+        this.name = name
+        this.price = price
+      }
+      wheel = 4
+    }
+
+  </script>
+</body>
+
+</html>
