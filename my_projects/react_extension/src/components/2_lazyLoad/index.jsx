@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import { NavLink, Route } from 'react-router-dom'
-import Home from './Home'
-import About from './About'
+
+const Home = lazy(() => import('./Home'))
+const About = lazy(() => import('./About'))
 
 export default class App extends Component {
 
@@ -27,8 +28,10 @@ export default class App extends Component {
             <div className="panel">
               <div className="panel-body">
                 {/* 注册路由 */}
-                <Route path="/about" component={About} />
-                <Route path="/home" component={Home} />
+                <Suspense fallback={<h1>Loading...</h1>}>
+                  <Route path="/about" component={About} />
+                  <Route path="/home" component={Home} />
+                </Suspense>
               </div>
             </div>
           </div>
